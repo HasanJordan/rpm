@@ -1,0 +1,41 @@
+using System;
+using System.Diagnostics;
+
+class Program
+{
+    static void Main()
+    {
+        var process = Process.GetCurrentProcess();
+        Console.WriteLine($"Id: {process.Id}");
+        Console.WriteLine($"Name: {process.ProcessName}");
+        Console.WriteLine($"VirtualMemory: {process.VirtualMemorySize64}\n");
+
+        foreach (Process p in Process.GetProcesses())
+        {
+            Console.WriteLine($"ID: {p.Id} Name: {p.ProcessName}");
+        }
+        Console.WriteLine();
+
+        Process[] vsProcs = Process.GetProcessesByName("devenv"); 
+        foreach (var proc in vsProcs)
+        {
+            Console.WriteLine($"VS ID: {proc.Id}");
+        }
+        Console.WriteLine();
+
+        if (vsProcs.Length > 0)
+        {
+            Process proc = vsProcs[0];
+            ProcessThreadCollection threads = proc.Threads;
+            foreach (ProcessThread thread in threads)
+            {
+                Console.WriteLine($"ThreadId: {thread.Id}");
+            }
+        }
+        Console.WriteLine();
+
+        Process.Start("notepad.exe");
+        Process.Start("calc.exe");
+        Process.Start(@"C:\Program Files\Google\Chrome\Application\chrome.exe", "https://metanit.com");
+    }
+}
