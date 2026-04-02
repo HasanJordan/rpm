@@ -1,0 +1,18 @@
+spisok = ["sand", "dend", "dend", "dend", "sand", "lock", "jond", "jond", "lond", "cold"]
+print(spisok[-2])
+print(spisok[1])
+print(spisok[3])
+spisok[2] = "low"
+print(spisok)
+print(spisok [2:5])
+spisok.insert(3, "front")
+print(spisok)
+seredina = len(spisok) // 2
+spisok.insert(seredina, "kepasa")
+print(spisok.count("jond"))
+spisok2 = spisok.copy()
+spisok.insert(3, "iloe")
+print(spisok)
+print(spisok2)
+
+      
