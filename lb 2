@@ -1,0 +1,141 @@
+using System;
+
+class Animal
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    
+    public Animal(string name, int age)
+    {
+        Name = name;
+        Age = age;
+        Console.WriteLine($"Создано животное: {name}");
+    }
+    
+    public virtual void Info()
+    {
+        Console.WriteLine($"Имя: {Name}, Возраст: {Age}");
+    }
+    
+    public virtual void Sound()
+    {
+        Console.WriteLine("Животное издает звук");
+    }
+}
+
+class Dog : Animal
+{
+    public string Breed { get; set; }
+    
+    public Dog(string name, int age, string breed) : base(name, age)
+    {
+        Breed = breed;
+        Console.WriteLine($"Создана собака породы {breed}");
+    }
+    
+    public override void Info()
+    {
+        base.Info(); 
+        Console.WriteLine($"Порода: {Breed}");
+    }
+    
+    public override void Sound()
+    {
+        Console.WriteLine($"{Name}: Гав-гав!");
+    }
+}
+
+class Cat : Animal
+{
+    public string Color { get; set; }
+    
+    public Cat(string name, int age, string color) : base(name, age)
+    {
+        Color = color;
+        Console.WriteLine($"Создана кошка цвета {color}");
+    }
+    
+    public override void Info()
+    {
+        base.Info();
+        Console.WriteLine($"Цвет: {Color}");
+    }
+    
+    public override void Sound()
+    {
+        Console.WriteLine($"{Name}: Мяу-мяу!");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== СОЗДАНИЕ ОБЪЕКТОВ ===\n");
+        
+        Dog dog = new Dog("Бобик", 3, "Овчарка");
+        Cat cat = new Cat("Мурка", 2, "Рыжий");
+        
+        Console.WriteLine("\n=== ИНФОРМАЦИЯ О ЖИВОТНЫХ ===\n");
+        
+        dog.Info();
+        dog.Sound();
+        
+        Console.WriteLine();
+        
+        cat.Info();
+        cat.Sound();
+        
+        Console.ReadLine();
+    }
+}
+----------------------------------------
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def info(self):
+        print(f"Имя: {self.name}, Возраст: {self.age}")
+    
+    def sound(self):
+        print("Животное издает звук")
+
+class Dog(Animal):
+    def __init__(self, name, age, breed):
+        super().__init__(name, age)
+        self.breed = breed
+    
+    def sound(self):
+        print(f"{self.name}: Гав-гав!")
+    
+    def info(self):
+        super().info()
+        print(f"Порода: {self.breed}")
+
+class Cat(Animal):
+    def __init__(self, name, age, color):
+        super().__init__(name, age)
+        self.color = color
+    
+    def sound(self):
+        print(f"{self.name}: Мяу-мяу!")
+    
+    def info(self):
+        super().info()
+        print(f"Цвет: {self.color}")
+
+print("=== СОЗДАНИЕ ОБЪЕКТОВ ===\n")
+
+dog = Dog("Бобик", 3, "Овчарка")
+
+cat = Cat("Мурка", 2, "Рыжий")
+
+print("=== ИНФОРМАЦИЯ О ЖИВОТНЫХ ===\n")
+
+dog.info()
+dog.sound()
+print()
+
+cat.info()
+cat.sound()
