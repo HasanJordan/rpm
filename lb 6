@@ -1,0 +1,45 @@
+using System;
+using System.Threading;
+using ExcelDataReader;
+using System.IO;
+using System.Data;
+
+class Program
+{
+    static void Main()
+    {
+        string filePath = "test.xlsx"; 
+
+        Thread t1 = new Thread(() => ReadSheet(filePath, "Лист1"));
+        Thread t2 = new Thread(() => ReadSheet(filePath, "Лист2"));
+
+        t1.Start();
+        t2.Start();
+
+        Console.WriteLine($"Статус t1: {t1.ThreadState}");
+        Console.WriteLine($"Статус t2: {t2.ThreadState}");
+
+        t1.Join();
+        t2.Join();
+    }
+
+    static void ReadSheet(string path, string sheetName)
+    {
+        if (sheetName == "Лист2")
+            Thread.Sleep(2000);
+
+        using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
+        using (var reader = ExcelReaderFactory.CreateReader(stream))
+        {
+            var dataSet = reader.AsDataSet();
+            var table = dataSet.Tables[sheetName];
+
+            foreach (DataRow row in table.Rows)
+            {
+                foreach (var item in row.ItemArray)
+                    Console.Write(item + " ");
+                Console.WriteLine();
+            }
+        }
+    }
+}
