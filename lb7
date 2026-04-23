@@ -9,6 +9,21 @@ List<string> spisok = new() { "sand", "dend", "dend", "dend", "sand", "lock", "j
 var builder = WebApplication.CreateBuilder();
 var app = builder.Build();
 
+app.MapGet("/", () => Results.Ok(new
+{
+    message = "API работает!",
+    endpoints = new[]
+    {
+        "GET  /api/spisok               — получить весь список",
+        "GET  /api/spisok/{index}       — получить элемент по индексу",
+        "PUT  /api/spisok/{index}       — обновить элемент по индексу",
+        "POST /api/spisok/insert/{index} — вставить элемент по индексу",
+        "DELETE /api/spisok/{index}      — удалить элемент по индексу",
+        "GET  /api/spisok/copy          — получить копию списка",
+        "GET  /api/spisok/count/{value} — подсчитать количество вхождений значения"
+    }
+}));
+
 app.MapGet("/api/spisok", () => spisok);
 
 app.MapGet("/api/spisok/{index}", (int index) =>
@@ -58,7 +73,6 @@ app.Run();
 
 record UpdateRequest(string Value);
 record InsertRequest(string Value);
-
 
 //Клиент
 using System.Net.Http.Json;
